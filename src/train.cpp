@@ -11,7 +11,7 @@ Train::~Train() {
     Car* next = current->next;
     delete current;
     current = next;
-  } while (current != first);  
+  } while (current != first);
   first = nullptr;
 }
 
@@ -39,19 +39,19 @@ int Train::getLength() {
   Car* temp;
   while (true) {
     temp = first;
-    uint32_t count = 1;
-    if (temp->light == false) {
-      temp->light = true;
+    uint16_t count = 1;
+    if (!temp->light) {
+        temp->light = true;
     }
     temp = temp->next;
     countOp += 2;
-    while (temp->light == false) {
+    while (!temp->light) {
       temp = temp->next;
       countOp += 2;
       count++;
     }
     temp->light = false;
-    if (first->light == false) {
+    if (!first->light) {
       return count;
     }
   }
