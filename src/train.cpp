@@ -16,23 +16,17 @@ Train::~Train() {
 }
 
 void Train::addCar(bool light) {
-  if (first == nullptr) {
-    first = new Car{ light, nullptr, nullptr };
-    return;
-  } else if (first->next == nullptr) {
-    Car* temp = new Car{ light, nullptr, nullptr };
-    first->next = temp;
-    first->prev = temp;
-    temp->next = nullptr;
-    temp->prev = nullptr;
-    return;
-  }
   Car* temp = new Car{ light, nullptr, nullptr };
-  first->prev->next = temp;
-  temp->prev = first->prev;
-  first->prev = temp;
-  temp->next = first;
-  first = temp;
+  if (!first) {
+    temp->next = temp;
+    temp->prev = temp;
+    first = temp;
+  } else {
+    temp->next = first;
+    temp->prev = first->prev;
+    first->prev->next = temp;
+    first->prev = temp;
+  }
 }
 int Train::getLength() {
   countOp = 0;
